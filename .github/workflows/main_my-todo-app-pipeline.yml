@@ -26,10 +26,10 @@ jobs:
           npm run build
           cd ..
 
-      - name: Move client build to server/src
+      - name: Move client build to server/src/dist
         run: |
-          mkdir -p server/src
-          cp -a client/dist/. server/src
+          mkdir -p server/src/dist
+          cp -a client/dist/. server/src/dist
 
       - name: Install server dependencies
         run: |
