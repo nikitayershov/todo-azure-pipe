@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies and build client
+      - name: Install client dependencies and build client
         run: |
           cd client
           npm install
@@ -29,6 +29,12 @@ jobs:
         run: |
           mkdir -p server/src
           cp -a client/dist/. server/src
+
+      - name: Install server dependencies
+        run: |
+          cd server
+          npm install
+          cd ..
 
       - name: Zip server for deployment
         run: zip -r server.zip server
