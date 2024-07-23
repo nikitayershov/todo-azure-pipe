@@ -28,7 +28,7 @@ jobs:
       - name: Move client build to server/src
         run: |
           mkdir -p server/src
-          cp -a client/build/. server/src
+          cp -a client/dist/. server/src
 
       - name: Zip server for deployment
         run: zip -r server.zip server
@@ -58,6 +58,5 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'my-todo-app-pipeline'  
+          app-name: 'my-todo-app-pipeline'
           package: server.zip
-
