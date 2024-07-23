@@ -21,20 +21,35 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: Install client dependencies and build client
         run: |
+          cd client
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build
+          cd ..
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+      - name: Move client build to server/src/dist
+        run: |
+          mkdir -p server/src/dist
+          cp -a client/dist/. server/src/dist
+
+      - name: Install server dependencies
+        run: |
+          cd server
+          npm install
+          cd ..
+
+      - name: Zip server for deployment
+        run: |
+          cd server
+          zip -r ../server.zip .
+          cd ..
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: server.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,7 +67,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip server.zip
       
       - name: Login to Azure
         uses: azure/login@v2
