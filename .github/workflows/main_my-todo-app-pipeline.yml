@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -36,7 +38,10 @@ jobs:
           cd ..
 
       - name: Zip server for deployment
-        run: zip -r server.zip server
+        run: |
+          cd server
+          zip -r ../server.zip .
+          cd ..
 
       - name: Upload server artifact
         uses: actions/upload-artifact@v2
