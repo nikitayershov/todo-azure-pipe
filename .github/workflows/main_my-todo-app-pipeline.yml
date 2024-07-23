@@ -77,3 +77,7 @@ jobs:
         with:
           app-name: 'my-todo-app-pipeline'
           package: server.zip
+
+      - name: Set environment variables in Azure App Service
+        run: |
+          az webapp config appsettings set --resource-group DefaultResourceGroup-EUS --name my-todo-app-pipeline --settings MONGO_URI=${{ secrets.MONGO_URI }} PASSWORD=${{ secrets.PASSWORD }} SECRET=${{ secrets.SECRET }} PORT=8080
