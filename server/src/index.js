@@ -33,9 +33,8 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
   app.listen(port);
 }).catch(err => {
   console.error('Database connection error:', err);
-}); 
-
-
+});  
+ 
 
 // const express = require('express');
 // const dotenv = require('dotenv');
