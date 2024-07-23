@@ -20,11 +20,11 @@ const router = require('./router');
 app.use('/api', router);
 
 // Serve static files from the dist folder
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '/dist')));
 
 // Handle all other routes with the index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '/dist', 'index.html'));
 });
 
 // Connect to MongoDB and start the server
